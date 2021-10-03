@@ -32,9 +32,9 @@ module AwsS3WebsiteSync
         )
       })
       bucket = s3.bucket s3_bucket
-      WebSync::Apply.delete bucket, keys_delete
-      WebSync::Apply.create_or_update bucket, items_create_or_update, build_dir
-      WebSync::Apply.invalidate aws_access_key_id, aws_secret_access_key, aws_default_region, distribution_id, caller_reference, data
+      AwsS3WebsiteSync::Apply.delete bucket, keys_delete
+      AwsS3WebsiteSync::Apply.create_or_update bucket, items_create_or_update, build_dir
+      AwsS3WebsiteSync::Apply.invalidate aws_access_key_id, aws_secret_access_key, aws_default_region, distribution_id, caller_reference, data
     end
 
     def self.delete bucket, keys

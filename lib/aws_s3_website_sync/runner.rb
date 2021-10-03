@@ -13,7 +13,7 @@ module AwsS3WebsiteSync
       silent:
     )
       $logger.info "Runner.run"
-      WebSync::Plan.run({
+      AwsS3WebsiteSync::Plan.run({
         output_changeset_path: output_changset_path,
         build_dir: build_dir,
         aws_access_key_id: aws_access_key_id,
@@ -22,7 +22,7 @@ module AwsS3WebsiteSync
         aws_default_region: aws_default_region,
         ignore_files: ignore_files
       })
-      WebSync::Preview.run({
+      AwsS3WebsiteSync::Preview.run({
         changeset_path: output_changset_path,
         silent: silent
       })
@@ -36,7 +36,7 @@ module AwsS3WebsiteSync
       else
         puts "Execute the plan? Type: yes or no"
         if auto_approve == true
-          WebSync::Apply.run({
+          AwsS3WebsiteSync::Apply.run({
             changeset_path: output_changset_path,
             build_dir: build_dir,
             aws_access_key_id: aws_access_key_id,
@@ -50,7 +50,7 @@ module AwsS3WebsiteSync
           print "> "
           case (gets.chomp)
           when 'yes'
-            WebSync::Apply.run({
+            AwsS3WebsiteSync::Apply.run({
               changeset_path: output_changset_path,
               build_dir: build_dir,
               aws_access_key_id: aws_access_key_id,

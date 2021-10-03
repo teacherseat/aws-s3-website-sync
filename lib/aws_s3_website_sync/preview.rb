@@ -23,19 +23,19 @@ module AwsS3WebsiteList
         case item['action']
         when 'ignore'
           summary[:ignore] += 1
-          AsciiColor.grey item['action']
+          AwsS3WebsiteSync::Color.grey item['action']
         when 'delete'
           summary[:delete] += 1
-          AsciiColor.red item['action']
+          AwsS3WebsiteSync::Color.red item['action']
         when 'create'
           summary[:create] += 1
-          AsciiColor.green item['action']
+          AwsS3WebsiteSync::Color.green item['action']
         when 'update'
           summary[:update] += 1
-          AsciiColor.cyan item['action']
+          AwsS3WebsiteSync::Color.cyan item['action']
         when 'no_change'
           summary[:no_change] += 1
-          AsciiColor.yellow item['action']
+          AwsS3WebsiteSync::Color.yellow item['action']
         end
 
         unless silent_actions.include?(item["action"])
@@ -44,11 +44,11 @@ module AwsS3WebsiteList
       end # data.each
       puts "--------------------------------------------------------------------"
       puts [
-        AsciiColor.grey("ignore: #{summary[:ignore]}"),
-        AsciiColor.red("delete: #{summary[:delete]}"),
-        AsciiColor.green("create: #{summary[:create]}"),
-        AsciiColor.cyan("update: #{summary[:update]}"),
-        AsciiColor.yellow("no_change: #{summary[:no_change]}")
+        AwsS3WebsiteSync::Color.grey("ignore: #{summary[:ignore]}"),
+        AwsS3WebsiteSync::Color.red("delete: #{summary[:delete]}"),
+        AwsS3WebsiteSync::Color.green("create: #{summary[:create]}"),
+        AwsS3WebsiteSync::Color.cyan("update: #{summary[:update]}"),
+        AwsS3WebsiteSync::Color.yellow("no_change: #{summary[:no_change]}")
       ].join('   ')
       puts ""
     end

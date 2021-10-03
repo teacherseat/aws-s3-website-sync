@@ -9,19 +9,19 @@ module AwsS3WebsiteSync
         aws_default_region:,
         ignore_files:
       )
-      paths = WebSync::List.local build_dir
-      keys  = WebSync::List.remote aws_access_key_id, aws_secret_access_key, s3_bucket, aws_default_region
+      paths = AwsS3WebsiteSync::List.local build_dir
+      keys  = AwsS3WebsiteSync::List.remote aws_access_key_id, aws_secret_access_key, s3_bucket, aws_default_region
 
       # Files we should delete
-      diff_delete = WebSync::Plan.delete paths, keys
+      diff_delete = AwsS3WebsiteSync::Plan.delete paths, keys
 
       # Ignore files we plan to delete for create_or_update
       create_or_update_keys = keys.reject{|t| diff_delete.any?(t[:path]) }
 
       # Files we should create or update
-      diff_create_or_update = WebSync::Plan.create_or_update paths, create_or_update_keys
+      diff_create_or_update = AwsS3WebsiteSync::Plan.create_or_update paths, create_or_update_keys
 
-      WebSync::Plan.create_changeset output_changeset_path, diff_delete, diff_create_or_update, ignore_files
+      AwsS3WebsiteSync::Plan.create_changeset output_changeset_path, diff_delete, diff_create_or_update, ignore_files
     end
 
     def self.create_changeset output_changeset_path, diff_delete_keys, diff_create_or_update, ignore_files
