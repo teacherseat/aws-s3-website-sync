@@ -1,4 +1,4 @@
-module AwsS3WebsiteList
+module AwsS3WebsiteSync
   class Preview
     def self.run changeset_path:, silent:
       silent_actions = silent.split(',')
