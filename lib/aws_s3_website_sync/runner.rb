@@ -35,7 +35,7 @@ module AwsS3WebsiteSync
         puts "no changes to apply, quitting....."
       else
         puts "Execute the plan? Type: yes or no"
-        if auto_approve == true
+        if auto_approve == "true"
           AwsS3WebsiteSync::Apply.run({
             changeset_path: output_changset_path,
             build_dir: build_dir,
@@ -48,7 +48,7 @@ module AwsS3WebsiteSync
           })
         else
           print "> "
-          case (gets.chomp)
+          case (STDIN.gets.chomp)
           when 'yes'
             AwsS3WebsiteSync::Apply.run({
               changeset_path: output_changset_path,
