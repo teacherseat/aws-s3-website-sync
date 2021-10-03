@@ -1,4 +1,4 @@
-module AwsS3WebsiteList
+module AwsS3WebsiteSync
   class List
     def self.local build_dir
       $logger.info "List.local"
