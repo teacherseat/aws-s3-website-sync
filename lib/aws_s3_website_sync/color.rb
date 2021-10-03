@@ -1,4 +1,4 @@
-module AwsS3WebsiteList
+module AwsS3WebsiteSync
   class Color
     def self.cyan str
       "\e[36m#{str}\e[0m"
