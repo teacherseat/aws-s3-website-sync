@@ -70,7 +70,7 @@ module AwsS3WebsiteSync
         # and explicty set content type to html.
         if !!(data["path"] =~ /\./) == false
           attrs[:content_type] = 'text/html'
-        elsif !!data["path"] =~ /\.svg/
+        elsif !!(data["path"] =~ /\.svg/)
           attrs[:content_type] = "image/svg+xml"
         end
         # TEMP
@@ -97,9 +97,14 @@ module AwsS3WebsiteSync
             quantity: items.count, # required
             items: items
           },
-          caller_reference: caller_reference # required
+          caller_reference: caller_reference + "-#{Time.now.to_i}" # required
         }
       })
+      if resp.is_a?(Seahorse::Client::Response)
+        puts "Invalidation #{resp.invalidation.id} has been created. Please wait about 60 seconds for it to finish."
+      else
+        puts "ERROR"
+      end
     end
   end
 end
