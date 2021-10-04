@@ -38,7 +38,7 @@ module AwsS3WebsiteSync
     end
 
     def self.delete bucket, keys
-      $logger.info "Diff.delete"
+      $logger.info "Apply.delete"
       return if keys.empty?
       puts "\t#{keys}"
       bucket.delete_objects({
@@ -70,15 +70,18 @@ module AwsS3WebsiteSync
         # and explicty set content type to html.
         if !!(data["path"] =~ /\./) == false
           attrs[:content_type] = 'text/html'
+        elsif !!data["path"] =~ /\.svg/
+          attrs[:content_type] = "image/svg+xml"
         end
         # TEMP
         resp = bucket.put_object(attrs)
       end
     end
 
-    def invalidate aws_access_key_id, aws_secret_access_key, aws_default_region, distribution_id, caller_reference, files
+    def self.invalidate aws_access_key_id, aws_secret_access_key, aws_default_region, distribution_id, caller_reference, files
+      $logger.info "Apply.invalidate"
       items = files.select{|t| %w{create update delete}.include?(t["action"]) }
-      items.map!{|t| t["path"] }
+      items.map!{|t| "/" + t["path"] }
 
       cloudfront = Aws::CloudFront::Client.new(
        region: aws_default_region,
@@ -87,7 +90,7 @@ module AwsS3WebsiteSync
          aws_secret_access_key
         )
       )
-      resp = client.create_invalidation({
+      resp = cloudfront.create_invalidation({
         distribution_id: distribution_id, # required
         invalidation_batch: { # required
           paths: { # required

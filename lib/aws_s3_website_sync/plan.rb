@@ -43,13 +43,13 @@ module AwsS3WebsiteSync
     # Get the differece between the local build directory and S3 bucket
     # return: [Array] a list of keys that should be deleted
     def self.delete paths, keys
-      $logger.info "Diff.delete"
+      $logger.info "Plan.delete"
       keys.map{|t|t[:path]} - paths.map{|t|t[:path]}
     end
 
     # Get the difference of files changed
     def self.create_or_update paths, keys
-      $logger.info "Diff.create_update"
+      $logger.info "Plan.create_update"
       results = []
       paths.each do |p|
         if k = keys.find{|t|t[:path] == p[:path] }
