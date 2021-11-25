@@ -70,6 +70,12 @@ module AwsS3WebsiteSync
         # and explicty set content type to html.
         if !!(data["path"] =~ /\./) == false
           attrs[:content_type] = 'text/html'
+        elsif !!(data["path"] =~ /\.html/)
+          attrs[:content_type] = 'text/html'
+        elsif !!(data["path"] =~ /\.css/)
+          attrs[:content_type] = 'text/css'
+        elsif !!(data["path"] =~ /\.js/)
+          attrs[:content_type] = 'application/x-javascript'
         elsif !!(data["path"] =~ /\.svg/)
           attrs[:content_type] = "image/svg+xml"
         end
