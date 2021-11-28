@@ -80,6 +80,7 @@ module AwsS3WebsiteSync
           attrs[:content_type] = "image/svg+xml"
         end
         # TEMP
+        puts "Content Type Detected: #{attrs[:content_type]}"
         resp = bucket.put_object(attrs)
       end
     end
