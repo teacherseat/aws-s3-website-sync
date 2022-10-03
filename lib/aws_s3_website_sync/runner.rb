@@ -13,7 +13,7 @@ module AwsS3WebsiteSync
       silent:
     )
       $logger.info "Runner.run"
-      AwsS3WebsiteSync::Plan.run({
+      AwsS3WebsiteSync::Plan.run(
         output_changeset_path: output_changset_path,
         build_dir: build_dir,
         aws_access_key_id: aws_access_key_id,
@@ -21,11 +21,11 @@ module AwsS3WebsiteSync
         s3_bucket: s3_bucket,
         aws_default_region: aws_default_region,
         ignore_files: ignore_files
-      })
-      AwsS3WebsiteSync::Preview.run({
+      )
+      AwsS3WebsiteSync::Preview.run(
         changeset_path: output_changset_path,
         silent: silent
-      })
+      )
 
       json = File.read output_changset_path
       data = JSON.parse json
@@ -36,7 +36,7 @@ module AwsS3WebsiteSync
       else
         puts "Execute the plan? Type: yes or no"
         if auto_approve == "true"
-          AwsS3WebsiteSync::Apply.run({
+          AwsS3WebsiteSync::Apply.run(
             changeset_path: output_changset_path,
             build_dir: build_dir,
             aws_access_key_id: aws_access_key_id,
@@ -45,12 +45,12 @@ module AwsS3WebsiteSync
             aws_default_region: aws_default_region,
             distribution_id: distribution_id,
             caller_reference:  File.basename(output_changset_path,'.json')
-          })
+          )
         else
           print "> "
           case (STDIN.gets.chomp)
           when 'yes'
-            AwsS3WebsiteSync::Apply.run({
+            AwsS3WebsiteSync::Apply.run(
               changeset_path: output_changset_path,
               build_dir: build_dir,
               aws_access_key_id: aws_access_key_id,
@@ -59,7 +59,7 @@ module AwsS3WebsiteSync
               aws_default_region: aws_default_region,
               distribution_id: distribution_id,
               caller_reference:  File.basename(output_changset_path,'.json')
-            })
+            )
           when 'no'
             puts "quitting...."
           end
