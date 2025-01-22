@@ -88,10 +88,9 @@ module AwsS3WebsiteSync
     def self.invalidate aws_access_key_id, aws_secret_access_key, aws_default_region, distribution_id, caller_reference, files
       $logger.info "Apply.invalidate"
       items = files.select{|t| %w{create update delete}.include?(t["action"]) }
-      items.map!{|t| 
-        # we can't invalidate /hello/index.html but instead /hello
-        # invalidation path is whatever the user sees in their web browser url.
-        "/" + t["path"].sub("index.html","")
+      items.map!{|t|
+        # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/invalidation-specifying-objects.html
+        "/" + t["path"]
       }
       puts "Invalidation Paths"
       puts items.inspect
