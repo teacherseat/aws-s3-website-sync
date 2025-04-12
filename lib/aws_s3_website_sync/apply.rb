@@ -92,6 +92,10 @@ module AwsS3WebsiteSync
         # https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/invalidation-specifying-objects.html
         "/" + t["path"]
       }
+
+      # For React we need to invalidate both index.html and the root path /
+      items.push "/"
+
       puts "Invalidation Paths"
       puts items.inspect
 
