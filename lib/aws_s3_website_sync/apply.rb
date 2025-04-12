@@ -78,6 +78,8 @@ module AwsS3WebsiteSync
           attrs[:content_type] = 'application/x-javascript'
         elsif !!(data["path"] =~ /\.svg/)
           attrs[:content_type] = "image/svg+xml"
+        elsif !!(data["path"] =~ /\.jpeg/)
+          attrs[:content_type] = "image/jpeg"
         end
         # TEMP
         puts "Content Type Detected: #{attrs[:content_type]}"

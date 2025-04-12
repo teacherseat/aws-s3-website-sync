@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    aws_s3_website_sync (1.0.3)
+    aws_s3_website_sync (1.0.4)
       aws-sdk-cloudfront
       aws-sdk-s3
 
