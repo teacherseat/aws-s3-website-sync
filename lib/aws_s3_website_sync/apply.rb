@@ -75,7 +75,7 @@ module AwsS3WebsiteSync
         elsif !!(data["path"] =~ /\.css/)
           attrs[:content_type] = 'text/css'
         elsif !!(data["path"] =~ /\.js/)
-          attrs[:content_type] = 'application/x-javascript'
+          attrs[:content_type] = 'text/javascript'
         elsif !!(data["path"] =~ /\.svg/)
           attrs[:content_type] = "image/svg+xml"
         elsif !!(data["path"] =~ /\.jpeg/)
